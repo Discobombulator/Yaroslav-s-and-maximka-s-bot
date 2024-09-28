@@ -26,34 +26,39 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
     @Override
     public void onUpdateReceived(Update update) {
+        int key = 0;
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
             String answer = botLogic.slogic(messageText);
-            sendMessage(chatId, answer);
+
+            if(messageText.equals("/work")) {
+                key = 1;
+            }
+            sendMessage(chatId, answer,key);
         }
     }
-    void sendMessage(long chatId, String textToSend) {
-        int key = 0;
+    void sendMessage(long chatId, String textToSend, int key) {
+
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
+        if (key == 1) {
+            InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
+            List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
-        InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
+            // Создание и добавление кнопок
 
-        // Создание и добавление кнопок
+            List<InlineKeyboardButton> row = new ArrayList<>();
 
-        List<InlineKeyboardButton> row = new ArrayList<>();
+            row.add(new InlineKeyboardButton().builder().text("ИЕНИМ").callbackData("error_msg_text1").build());
+            row.add(new InlineKeyboardButton().builder().text("РТФ").callbackData("error_msg_text2").build());
+            row.add(new InlineKeyboardButton().builder().text("ХТИ").callbackData("error_msg_text3").build());
+            keyboard.add(row);
 
-        row.add(new InlineKeyboardButton().builder().text("ИЕНИМ").callbackData("error_msg_text1").build());
-        row.add(new InlineKeyboardButton().builder().text("РТФ").callbackData("error_msg_text2").build());
-        row.add(new InlineKeyboardButton().builder().text("ХТИ").callbackData("error_msg_text3").build());
-        keyboard.add(row);
-
-        markup.setKeyboard(keyboard);
-        message.setReplyMarkup(markup);
-
+            markup.setKeyboard(keyboard);
+            message.setReplyMarkup(markup);
+        }
 
         try {
             execute(message);

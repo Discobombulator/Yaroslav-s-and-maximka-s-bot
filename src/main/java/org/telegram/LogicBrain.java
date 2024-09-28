@@ -9,14 +9,18 @@ public class LogicBrain {
      * метод, который возвращает ответ бота
      */
     private String startCommandReceived() {
-        String answer = "Привет, этот бот может помочь тебе понять куда ты хочешь поступить.";
+        String answer = "Привет, этот бот может помочь тебе понять куда ты хочешь поступить. Если хотите начать работу напишите /work";
         return answer;
     }
-
     private String defaultCommandReceived() {
         String answer = "Привет, этот бот может помочь тебе понять куда ты хочешь поступить," +
                 " пожалуйста пользуйся кнопками. Если у тебя остались вопросы, можешь воспользоваться командой /question." +
-                " Вот все институты у которых ты можешь посмотреть факультеты";
+                " Если хотите начать работу напишите /work";
+        return answer;
+    }
+
+    private String workCommandReceived() {
+        String answer = "Вот все институты у которых ты можешь посмотреть факультеты:";
         return answer;
     }
 
@@ -30,6 +34,8 @@ public class LogicBrain {
                 return startCommandReceived();
             case "/help":
                 return startCommandReceived();
+            case "/work":
+                return workCommandReceived();
             default:
                 return defaultCommandReceived();
         }
