@@ -23,7 +23,7 @@ public class LogicBrain {
         String answer = "Вот все институты у которых ты можешь посмотреть факультеты:";
         return answer;
     }
-    private String inst1CommandReceived() {
+    private String instCommandReceived() {
         String answer = "Вот все факультеты которые есть в этом институте:";
         return answer;
     }
@@ -41,7 +41,11 @@ public class LogicBrain {
             case "/work":
                 return workCommandReceived();
             case "ИЕНИМ":
-                return inst1CommandReceived();
+                return instCommandReceived();
+            case "РТФ":
+                return instCommandReceived();
+            case "ХТИ":
+                return instCommandReceived();
             default:
                 return defaultCommandReceived();
         }
