@@ -25,39 +25,51 @@ public class TelegramBot extends TelegramLongPollingBot {
         botToken = token;
         botLogic = logic;
     }
+    public int testkey(String messageText){
+        int key = 0 ;
+        if(messageText.equals("/work")) {
+            key = 1;
+        }
+        return key;
+    }
+    public int testkey2(String messageText){
+        int key2 = 0 ;
+        if(messageText.equals("ИЕНИМ")) {
+            key2 = 1;
+        }
+        if(messageText.equals("РТФ")) {
+            key2 = 2;
+        }
+        if(messageText.equals("ХТИ")) {
+            key2 = 3;
+        }
+        return key2;
+    }
+
     @Override
     public void onUpdateReceived(Update update) {
-        int key = 0;
-        int key2 = 0;
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if(update.hasCallbackQuery() && update.getCallbackQuery() != null) {
+            String data = update.getCallbackQuery().getData();
+            sendMessage( update.getUpdateId(), data, testkey(data), testkey2(data));
+
+        }
+
+        if (update.hasMessage() && update.getMessage() != null) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
             String answer = botLogic.slogic(messageText);
-
-
-            if(messageText.equals("/work")) {
-                key = 1;
-            }
-            if(messageText.equals("ИЕНИМ")) {
-                key2 = 1;
-            }
-            if(messageText.equals("РТФ")) {
-                key2 = 2;
-            }
-            if(messageText.equals("ХТИ")) {
-                key2 = 3;
-            }
-            sendMessage(chatId, answer,key,key2);
-            key = 0;
-            key2 = 0;
+            sendMessage(chatId, answer, testkey(messageText), testkey2(messageText));
         }
     }
+
     void sendMessage(long chatId, String textToSend, int key, int key2) {
 
 
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
+
+        System.out.println(textToSend);
         System.out.println(key);
         System.out.println(key2);
         if (key == 1) {
