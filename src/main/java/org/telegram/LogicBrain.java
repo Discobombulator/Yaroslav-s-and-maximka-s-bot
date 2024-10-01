@@ -8,8 +8,8 @@ public class LogicBrain {
     /**
      * метод, который возвращает ответ бота
      */
-    private String startCommandReceived() {
-        String answer = "Привет, этот бот может помочь тебе понять куда ты хочешь поступить. Если хотите начать работу напишите /work";
+    private String questionCommandReceived() {
+        String answer = "Привет, эта функция пока, что находиться в разработка(((. Если хотите начать работу напишите /work";
         return answer;
     }
     private String defaultCommandReceived() {
@@ -23,6 +23,19 @@ public class LogicBrain {
         String answer = "Вот все институты у которых ты можешь посмотреть факультеты:";
         return answer;
     }
+    private String inst1CommandReceived() {
+        String answer = "Вот все факультеты которые есть в институте ИЕНИМ:";
+        return answer;
+    }
+    private String inst2CommandReceived() {
+        String answer = "Вот все факультеты которые есть в институте РТФ:";
+        return answer;
+    }
+    private String inst3CommandReceived() {
+        String answer = "Вот все факультеты которые есть в институте ХТИ:";
+        return answer;
+    }
+
     /**
      * метод, который реализует основную логику работы бота
      * @param messageText сообщение от пользователя
@@ -30,11 +43,19 @@ public class LogicBrain {
     public String slogic(String messageText){
         switch (messageText) {
             case "/start":
-                return startCommandReceived();
+                return defaultCommandReceived();
             case "/help":
-                return startCommandReceived();
+                return defaultCommandReceived();
+            case "/question":
+                return questionCommandReceived();
             case "/work":
                 return workCommandReceived();
+            case "ИЕНИМ":
+                return inst1CommandReceived();
+            case "РТФ":
+                return inst2CommandReceived();
+            case "ХТИ":
+                return inst3CommandReceived();
             default:
                 return defaultCommandReceived();
         }
