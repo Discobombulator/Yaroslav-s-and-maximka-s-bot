@@ -14,6 +14,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final String botName;
     private final String botToken;
     private final LogicBrain botLogic;
+
     public TelegramBot(String name, String token, LogicBrain logic) {
         botName = name;
         botToken = token;
@@ -46,28 +47,35 @@ public class TelegramBot extends TelegramLongPollingBot {
         if(update.hasCallbackQuery() && update.getCallbackQuery() != null) {
             String data = update.getCallbackQuery().getData();
             String answer = botLogic.slogic(data);
-            sendMessage( update.getCallbackQuery().getFrom().getId(), answer, testkey(data), testkey2(data));
+            System.out.println(data + " 2");
+            System.out.println(answer);
+            sendMessage( update.getCallbackQuery().getFrom().getId(), data, 2, testkey2(data), answer);
 
         }
 
         if (update.hasMessage() && update.getMessage() != null) {
             String messageText = update.getMessage().getText();
             String answer = botLogic.slogic(messageText);
-            sendMessage(update.getMessage().getChatId(), answer, testkey(messageText), testkey2(messageText));
+            System.out.println(messageText + " 1");
+            System.out.println(answer);
+            sendMessage(update.getMessage().getChatId(), answer, testkey(messageText), testkey2(messageText),messageText);
         }
     }
 
-    void sendMessage(long chatId, String textToSend, int key, int key2) {
+    void sendMessage(long chatId, String textToSend, int key, int key2, String data) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
+        System.out.println(data);
+        dataInfoTo infoObj = new dataInfoTo();
+        textToSend = infoObj.takeInfo(textToSend);
         message.setText(textToSend);
 
         keyboardLogic keyboardLogicObj = new keyboardLogic();
         keyboardLogicObj.keyboards(message, key, key2);
 
+
         try {
 
-            System.out.println(message);
             execute(message);
         } catch (TelegramApiException e) {
             // Обработка исключения (опционально: логирование)

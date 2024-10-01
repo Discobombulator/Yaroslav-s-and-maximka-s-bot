@@ -23,11 +23,6 @@ public class LogicBrain {
         String answer = "Вот все институты у которых ты можешь посмотреть факультеты:";
         return answer;
     }
-    private String instCommandReceived() {
-        String answer = "Вот все факультеты которые есть в этом институте:";
-        return answer;
-    }
-
     /**
      * метод, который реализует основную логику работы бота
      * @param messageText сообщение от пользователя
@@ -40,12 +35,6 @@ public class LogicBrain {
                 return startCommandReceived();
             case "/work":
                 return workCommandReceived();
-            case "ИЕНИМ":
-                return instCommandReceived();
-            case "РТФ":
-                return instCommandReceived();
-            case "ХТИ":
-                return instCommandReceived();
             default:
                 return defaultCommandReceived();
         }
