@@ -6,9 +6,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Класс для контроля над клавиатурами
+ */
 public class keyboardLogic {
-
+    /**
+     * Метод, который обрабатывает клавиатуры отправляющиеся вместе с сообщением
+     */
     public SendMessage keyboards(SendMessage message, String data){
 
         if (data.equals("/work")) {
@@ -34,7 +38,6 @@ public class keyboardLogic {
             InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
             List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
-// Создание и добавление кнопок
 
             List<InlineKeyboardButton> row1 = new ArrayList<>();
             row1.add(new InlineKeyboardButton().builder().text("Компьютерные Науки").callbackData("1").build());
